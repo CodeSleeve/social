@@ -23,7 +23,7 @@ class SocialServiceProvider extends ServiceProvider {
 		include __DIR__.'/../../routes.php';
 	
 		$this->app['social'] = $this->app->share(function($app) {
-            return new SocialRepository($app['config'], $app['url']);
+            return new SocialRepository($app['config'], $app['url'], $app['session']);
         });
 	}
 

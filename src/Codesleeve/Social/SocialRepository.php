@@ -3,7 +3,6 @@
 namespace Codesleeve\Social;
 
 use OAuth\OAuth2\Service\Facebook;
-use OAuth\Common\Storage\Session;
 use OAuth\Common\Consumer\Credentials;
 use OAuth\ServiceFactory;
 
@@ -13,10 +12,11 @@ class SocialRepository extends ServiceFactory {
 	 * [__construct description]
 	 * @param [type] $config [description]
 	 */
-	public function __construct($config, $url)
+	public function __construct($config, $url, $session)
 	{
 		$this->config = $config;
 		$this->url = $url;
+		$this->session = $session;
 		$this->setDecoder();
 	}
 
@@ -177,7 +177,7 @@ class SocialRepository extends ServiceFactory {
 		$scopes = $this->config->get("social::$name.scopes");
 
 		$credentials = new Credentials($key, $secret, $url);
-		$storage = new Session;
+		$storage = new Session($this->session->driver());
 
 		$factory = new ServiceFactory;
 		return $factory->createService($name, $credentials, $storage, $scopes);

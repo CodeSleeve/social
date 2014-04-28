@@ -28,7 +28,7 @@ class SocialRepositoryTest extends PHPUnit_Framework_TestCase
      * @param  [type] $url    [description]
      * @return [type]         [description]
      */
-    public function newSocial($config = null, $url = null)
+    public function newSocial($config = null, $url = null, $session = null)
     {
         if (!$config) {
             $config = $this->getMock('Config');            
@@ -38,7 +38,11 @@ class SocialRepositoryTest extends PHPUnit_Framework_TestCase
             $url = $this->getMock('Url');            
         }
 
-        $social = new SocialRepository($config, $url);
+        if (!$session) {
+            $session = $this->getMock('Session');            
+        }
+
+        $social = new SocialRepository($config, $url, $session);
 
         return $social;
     }
