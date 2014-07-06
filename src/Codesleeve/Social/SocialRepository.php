@@ -180,6 +180,8 @@ class SocialRepository extends ServiceFactory {
 		$storage = new Session;
 
 		$factory = new ServiceFactory;
+		if($name=='github')
+			$name = 'gitHub';
 		return $factory->createService($name, $credentials, $storage, $scopes);
 	}
 
